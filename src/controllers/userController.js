@@ -113,7 +113,7 @@ const updateUserById = (req, res) => {
     })
     .catch((err) => {
       console.error("Error updating user:", err);
-      res.status(500).send({ error: "Internal Server Error" });
+      res.status(500).send({ message: "Internal Server Error" });
     });
 };
 
