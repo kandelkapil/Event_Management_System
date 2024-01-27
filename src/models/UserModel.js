@@ -22,9 +22,9 @@ const User = (sequelize, Sequelize) => {
     description: {
       type: Sequelize.STRING,
     },
-    followers:{
+    followers: {
       type: Sequelize.STRING,
-    }
+    },
   });
 
   return User;
