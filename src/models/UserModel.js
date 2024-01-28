@@ -3,6 +3,12 @@ const User = (sequelize, Sequelize) => {
     username: {
       type: Sequelize.STRING,
     },
+    first_name: {
+      type: Sequelize.STRING,
+    },
+    last_name: {
+      type: Sequelize.STRING,
+    },
     email: {
       type: Sequelize.STRING,
     },
