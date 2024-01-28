@@ -5,6 +5,7 @@ import cors from "cors";
 import AuthRoute from "./routes/authRoutes.js";
 import UserRoute from "./routes/userRoutes.js";
 import UtilsRoute from "./routes/utilsroute.js";
+import EventRoute from "./routes/eventsRoutes.js";
 
 const PORT = process.env.PORT || 8000;
 
@@ -28,6 +29,7 @@ app.use(
 
 app.use("/api/auth", AuthRoute);
 app.use("/api/user", UserRoute);
+app.use("/api/events", EventRoute);
 app.use("/api/upload", UtilsRoute);
 app.get("*", (req, res) => {
   res.status(404).send({ message: "Route not found" });
