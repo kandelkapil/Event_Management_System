@@ -106,6 +106,7 @@ const login = async (req, res) => {
       username: foundUser.username,
       email: foundUser.email,
       message: "Login Successfully",
+      profile_pic: foundUser.profile_pic,
     };
 
     // Send accessToken containing username and roles
@@ -157,7 +158,7 @@ const logout = (req, res) => {
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(204); //No content
   res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
-  res.json({ message: "Cookie cleared" });
+  res.json({ message: "Log out success" });
 };
 
 export { signUp, login, refresh, logout };
