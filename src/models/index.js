@@ -1,6 +1,7 @@
 import Sequelize from "sequelize";
 import { dbconfig } from "../database/dbConfig.js";
 import UserModel from "./UserModel.js";
+import EventModel from "./EventsModel.js";
 
 const sequelize = new Sequelize(
   dbconfig.DB_NAME,
@@ -24,5 +25,6 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.user = UserModel(sequelize, Sequelize);
+db.events = EventModel(sequelize, Sequelize);
 
 export { db };
