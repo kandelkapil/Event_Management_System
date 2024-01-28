@@ -5,6 +5,8 @@ const usersList = (req, res) => {
   User.findAll({
     attributes: [
       "id",
+      "first_name",
+      "last_name",
       "username",
       "email",
       "profile_pic",
@@ -36,6 +38,8 @@ const getUserById = async (req, res) => {
       },
       attributes: [
         "id",
+        "first_name",
+        "last_name",
         "username",
         "email",
         "profile_pic",
@@ -63,7 +67,8 @@ const getUserById = async (req, res) => {
 };
 
 const updateUserById = (req, res) => {
-  const { profile_pic, address, phone, description, id } = req.body;
+  const { profile_pic, address, phone, description, id, firstName, lastName } =
+    req.body;
 
   // Validate if userId is provided
   if (!id) {
@@ -79,6 +84,12 @@ const updateUserById = (req, res) => {
       }
 
       // Update user information based on provided data
+      if (firstName) {
+        user.first_name = firstName;
+      }
+      if (lastName) {
+        user.last_name = lastName;
+      }
       if (profile_pic) {
         user.profile_pic = profile_pic;
       }
@@ -98,6 +109,8 @@ const updateUserById = (req, res) => {
     .then((updatedUser) => {
       const userDetail = {
         id: updatedUser.id,
+        first_name: updatedUser.first_name,
+        last_name: updatedUser.last_name,
         username: updatedUser.username,
         email: updatedUser.email,
         profile_pic: updatedUser.profile_pic,
