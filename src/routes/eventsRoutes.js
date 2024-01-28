@@ -14,6 +14,5 @@ router.route("/").post(eventController.createEvent);
 router.route("/:id").patch(eventController.updateUserById);
 router.route("/:id").delete(eventController.deleteEventById);
 router.route("/:id/register").post(eventController.registerEvent);
-router.route("/:id/registrations").get(eventController.registrationList);
 
 export default router;
