@@ -26,7 +26,7 @@ const User = (sequelize, Sequelize) => {
     },
 
     description: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
     },
     followers: {
       type: Sequelize.STRING,

@@ -13,7 +13,7 @@ const Events = (sequelize, Sequelize) => {
       type: Sequelize.ARRAY(Sequelize.JSON),
     },
     description: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
     },
     venue_time: {
       type: Sequelize.STRING,
