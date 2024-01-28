@@ -1,4 +1,4 @@
-const Events = (sequelize, Sequelize) => {
+const Events = (sequelize:any, Sequelize:any) => {
   const Events = sequelize.define("events", {
     location: {
       type: Sequelize.STRING,

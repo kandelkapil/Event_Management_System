@@ -1,9 +1,10 @@
-import { db } from "../models/index.js";
+import { Request, Response } from "express";
+import { db } from "../models/index";
+
 const Events = db.events;
 const User = db.user;
-const Op = db.Sequelize.Op;
 
-const eventsList = (req, res) => {
+const eventsList = (req: Request, res: Response): void => {
   Events.findAll({
     attributes: [
       "id",
@@ -16,11 +17,10 @@ const eventsList = (req, res) => {
       "venue_time",
     ],
   })
-    .then((events) => {
-      const parsedEvents = events.map((event) => {
-        // Parse attendees field if it's not null
+    .then((events: any) => {
+      const parsedEvents = events.map((event: any) => {
         const attendeesArray = event.attendees
-          ? event.attendees.map((jsonString) => JSON.parse(jsonString))
+          ? event.attendees.map((jsonString: any) => JSON.parse(jsonString))
           : [];
 
         return {
@@ -39,18 +39,19 @@ const eventsList = (req, res) => {
         .status(200)
         .send({ events: parsedEvents, count: parsedEvents.length });
     })
-    .catch((err) => {
+    .catch((err: any) => {
       console.error(err);
       res.status(500).send(err);
     });
 };
 
-const getEventById = async (req, res) => {
+const getEventById = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
 
     if (!id) {
-      return res.status(400).json({ message: "event id is not provided" });
+      res.status(400).json({ message: "event id is not provided" });
+      return;
     }
 
     const foundEvent = await Events.findOne({
@@ -75,7 +76,8 @@ const getEventById = async (req, res) => {
         statusCode: 401,
         message: "Event is not registered",
       };
-      return res.status(401).json(error);
+      res.status(401).json(error);
+      return;
     }
 
     res.json({ event: foundEvent });
@@ -84,7 +86,7 @@ const getEventById = async (req, res) => {
   }
 };
 
-const updateUserById = (req, res) => {
+const updateUserById = (req: Request, res: Response): void => {
   const { id } = req.params;
   const {
     location,
@@ -96,20 +98,17 @@ const updateUserById = (req, res) => {
     name,
   } = req.body;
 
-  // Validate if userId is provided
   if (!id) {
-    return res.status(400).send({ error: "Event id is required" });
+    res.status(400).send({ error: "Event id is required" });
+    return;
   }
 
-  // Find the user by ID
   Events.findByPk(id)
-    .then((event) => {
-      // Check if the event exists
+    .then((event: any) => {
       if (!event) {
         return res.status(404).send({ error: "Event not found" });
       }
 
-      // Update event information based on provided data
       if (name) {
         event.name = name;
       }
@@ -132,10 +131,9 @@ const updateUserById = (req, res) => {
         event.description = description;
       }
 
-      // Save the updated event
       return event.save();
     })
-    .then((updatedEvent) => {
+    .then((updatedEvent: any) => {
       const eventDetail = {
         id: updatedEvent.id,
         name: updatedEvent.name,
@@ -151,36 +149,34 @@ const updateUserById = (req, res) => {
         .status(200)
         .send({ ...eventDetail, message: "Event successfully updated" });
     })
-    .catch((err) => {
+    .catch((err: any) => {
       console.error("Error updating event:", err);
       res.status(500).send({ message: "Internal Server Error" });
     });
 };
 
-const deleteEventById = async (req, res) => {
+const deleteEventById = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.params; // Assuming the event ID is passed in the URL params
+    const { id } = req.params;
 
     if (!id) {
-      return res.status(400).json({ message: "Event id is not provided" });
+      res.status(400).json({ message: "Event id is not provided" });
+      return;
     }
 
-    // Find the event by ID
     const foundEvent = await Events.findOne({
       where: {
         id: id,
       },
     });
 
-    // If the event is not found
     if (!foundEvent) {
-      return res.status(404).json({ message: "Event not found" });
+      res.status(404).json({ message: "Event not found" });
+      return;
     }
 
-    // Delete the event
     await foundEvent.destroy();
 
-    // Send a success response
     res.json({ message: "Event deleted successfully" });
   } catch (error) {
     console.error(error);
@@ -188,19 +184,16 @@ const deleteEventById = async (req, res) => {
   }
 };
 
-const createEvent = async (req, res) => {
+const createEvent = async (req: Request, res: Response): Promise<void> => {
   try {
     const { location, picture, created_by, description, venue_time, name } =
       req.body;
 
-    // Validate required fields
     if (!location || !created_by || !description || !venue_time || !name) {
-      return res
-        .status(400)
-        .json({ message: "Please provide all required fields" });
+      res.status(400).json({ message: "Please provide all required fields" });
+      return;
     }
 
-    // Check if the event already exists
     const existingEvent = await Events.findOne({
       where: {
         name: name,
@@ -208,12 +201,12 @@ const createEvent = async (req, res) => {
     });
 
     if (existingEvent) {
-      return res.status(400).json({
+      res.status(400).json({
         message: "Event with the same name already exists",
       });
+      return;
     }
 
-    // Create a new event
     const newEvent = await Events.create({
       location,
       picture,
@@ -233,7 +226,6 @@ const createEvent = async (req, res) => {
       message: "Event created successfully",
     };
 
-    // Send a success response with the newly created event
     res.status(201).json({ ...eventDetails });
   } catch (error) {
     console.error(error);
@@ -241,7 +233,7 @@ const createEvent = async (req, res) => {
   }
 };
 
-const registerEvent = async (req, res) => {
+const registerEvent = async (req: Request, res: Response): Promise<void> => {
   try {
     const eventId = req.params.id;
     const { userId, action } = req.body;
@@ -264,74 +256,70 @@ const registerEvent = async (req, res) => {
       ],
     });
 
-    // Check if the user exists
     if (!existingUser) {
-      return res.status(404).json({ error: "User not found" });
+      res.status(404).json({ error: "User not found" });
+      return;
     }
 
-    // Serialize user data appropriately for the array
     const userObject = existingUser.toJSON();
     const userString = JSON.stringify(userObject);
 
-    // Check if the event exists
     const event = await Events.findOne({ where: { id: Number(eventId) } });
     if (!event) {
-      return res.status(404).json({ error: "Event not found" });
+      res.status(404).json({ error: "Event not found" });
+      return;
     }
 
-    // Initialize attendees as an empty array if it's null
     event.attendees = event.attendees || [];
 
-    const parsedEventAttendees = event.attendees.map((jsonString) =>
+    const parsedEventAttendees = event.attendees.map((jsonString: any) =>
       JSON.parse(jsonString)
     );
 
     if (action === "register") {
-      // Check if the user is already registered
       if (
-        parsedEventAttendees.some((attendee) => attendee.id === existingUser.id)
+        parsedEventAttendees.some(
+          (attendee: any) => attendee.id === existingUser.id
+        )
       ) {
-        return res
+        res
           .status(400)
           .json({ message: "User is already registered for this event" });
+        return;
       }
 
-      // Register the user for the event
       const updatedAttendees = [...event.attendees, userString];
       event.setDataValue("attendees", updatedAttendees);
     } else if (action === "cancel") {
-      // Check if the user is registered for the event
       const userIndex = parsedEventAttendees.findIndex(
-        (attendee) => attendee.id === existingUser.id
+        (attendee: any) => attendee.id === existingUser.id
       );
 
       if (userIndex === -1) {
-        return res.status(400).json({
+        res.status(400).json({
           message: "User is not registered for this event",
         });
+        return;
       }
 
-      // Cancel the user's registration
       const updatedAttendees = [
         ...event.attendees.slice(0, userIndex),
         ...event.attendees.slice(userIndex + 1),
       ];
       event.setDataValue("attendees", updatedAttendees);
     } else {
-      return res.status(400).json({ message: "Invalid action" });
+      res.status(400).json({ message: "Invalid action" });
+      return;
     }
 
     await event.save();
 
-    res
-      .status(201)
-      .json({ message: "Event status successfully updated" });
+    res.status(201).json({ message: "Event status successfully updated" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
 
 export {
   getEventById,
@@ -340,5 +328,4 @@ export {
   updateUserById,
   createEvent,
   registerEvent,
-  // registrationList,
 };

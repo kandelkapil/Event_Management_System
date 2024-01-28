@@ -1,4 +1,4 @@
-const User = (sequelize, Sequelize) => {
+const User = (sequelize: any, Sequelize: any) => {
   const User = sequelize.define("users", {
     username: {
       type: Sequelize.STRING,

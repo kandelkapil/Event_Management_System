@@ -1,7 +1,9 @@
-import { db } from "../models/index.js";
+import { Request, Response } from "express";
+import { db } from "../models/index";
+
 const User = db.user;
 
-const usersList = (req, res) => {
+const usersList = (req: Request, res: Response): void => {
   User.findAll({
     attributes: [
       "id",
@@ -16,20 +18,21 @@ const usersList = (req, res) => {
       "followers",
     ],
   })
-    .then((users) => {
+    .then((users: any) => {
       res.status(200).send({ users, count: users.length });
     })
-    .catch((err) => {
+    .catch((err: any) => {
       res.status(500).send(err);
     });
 };
 
-const getUserById = async (req, res) => {
+const getUserById = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.body;
 
     if (!id) {
-      return res.status(400).json({ message: "user id is not provided" });
+      res.status(400).json({ message: "user id is not provided" });
+      return;
     }
 
     const foundUser = await User.findOne({
@@ -56,28 +59,29 @@ const getUserById = async (req, res) => {
         statusCode: 401,
         message: "User is not registered",
       };
-      return res.status(401).json(error);
+      res.status(401).json(error);
+      return;
     }
 
-    // Send accessToken containing username and roles
     res.json({ user: foundUser });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
-const updateUserById = (req, res) => {
+const updateUserById = (req: Request, res: Response): void => {
   const { profile_pic, address, phone, description, id, firstName, lastName } =
     req.body;
 
   // Validate if userId is provided
   if (!id) {
-    return res.status(400).send({ error: "User ID is required" });
+    res.status(400).send({ error: "User ID is required" });
+    return;
   }
 
   // Find the user by ID
   User.findByPk(id)
-    .then((user) => {
+    .then((user: any) => {
       // Check if the user exists
       if (!user) {
         return res.status(404).send({ error: "User not found" });
@@ -106,7 +110,7 @@ const updateUserById = (req, res) => {
       // Save the updated user
       return user.save();
     })
-    .then((updatedUser) => {
+    .then((updatedUser: any) => {
       const userDetail = {
         id: updatedUser.id,
         first_name: updatedUser.first_name,
@@ -124,7 +128,7 @@ const updateUserById = (req, res) => {
         .status(200)
         .send({ ...userDetail, message: "User successfully updated" });
     })
-    .catch((err) => {
+    .catch((err: any) => {
       console.error("Error updating user:", err);
       res.status(500).send({ message: "Internal Server Error" });
     });

@@ -1,13 +1,13 @@
-import { db } from "./models/index.js";
-import express from "express";
+import { db } from "./models/index";
+import express, { Request, Response } from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import AuthRoute from "./routes/authRoutes.js";
-import UserRoute from "./routes/userRoutes.js";
-import UtilsRoute from "./routes/utilsroute.js";
-import EventRoute from "./routes/eventsRoutes.js";
+import AuthRoute from "./routes/authRoutes";
+import UserRoute from "./routes/userRoutes";
+import UtilsRoute from "./routes/utilsroute";
+import EventRoute from "./routes/eventsRoutes";
 
-const PORT = process.env.PORT || 8000;
+const PORT: number | string = process.env.PORT || 8000;
 
 const app = express();
 
@@ -31,7 +31,7 @@ app.use("/api/auth", AuthRoute);
 app.use("/api/user", UserRoute);
 app.use("/api/events", EventRoute);
 app.use("/api/upload", UtilsRoute);
-app.get("*", (req, res) => {
+app.get("*", (req: Request, res: Response) => {
   res.status(404).send({ message: "Route not found" });
 });
 
