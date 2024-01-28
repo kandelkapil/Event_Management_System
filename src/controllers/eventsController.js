@@ -325,32 +325,13 @@ const registerEvent = async (req, res) => {
 
     res
       .status(201)
-      .json({ message: "Operation completed successfully for event" });
+      .json({ message: "Event status successfully updated" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
-const registrationList = async (req, res) => {
-  try {
-    const eventId = req.params.id;
-
-    // Check if the event exists
-    const event = await Events.findById(eventId);
-    if (!event) {
-      return res.status(404).json({ error: "Event not found" });
-    }
-
-    // Fetch user details for each registered user
-    const registrations = await User.find({ _id: { $in: event.attendees } });
-
-    res.status(200).json({ registrations });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
 
 export {
   getEventById,
@@ -359,5 +340,5 @@ export {
   updateUserById,
   createEvent,
   registerEvent,
-  registrationList,
+  // registrationList,
 };
