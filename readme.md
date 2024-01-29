@@ -90,8 +90,10 @@ Upload Image: Handle image uploads.
 
 Project Installation
 
-Clone the repository: git clone <repository_url>
-Navigate to the project directory: cd event-management
+Clone the repository
+
+Navigate to the project directory
+
 Install dependencies: npm install
 
 Running the Project
