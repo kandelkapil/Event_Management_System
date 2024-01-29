@@ -1,10 +1,8 @@
-Event Management Project
-
-Description
+# Event Management Project
 
 This is an Event Management project built using the Model-View-Controller (MVC) design pattern. The project is implemented in Node.js and uses PostgreSQL as the database. Sequelize is employed as the ORM, JWT is used for token authentication, Multer handles image uploads, and TypeScript enhances code maintainability.
 
-Routes
+# Routes
 
 Auth Route:
 
@@ -32,7 +30,7 @@ Util Route:
 Upload Image: Post an image to the backend.
 Get Image by Name: Retrieve an image by its name.
 
-Models
+# Models
 
 User Schema:
 
@@ -57,7 +55,7 @@ Description
 Venue Time
 Name
 
-Middleware:
+# Middleware:
 
 Middleware to check the validity of JWT tokens.
 
@@ -88,7 +86,7 @@ Util Controller
 
 Upload Image: Handle image uploads.
 
-Project Installation
+# Project Installation
 
 Clone the repository
 
@@ -102,8 +100,8 @@ To start the project,
 
 Create a .env file from .env.example.
 
-npm install
+# npm install
 
-npm start
+# npm start
 
 The server will be running at http://localhost:8000.
