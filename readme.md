@@ -7,8 +7,11 @@ This is an Event Management project built using the Model-View-Controller (MVC) 
 # Auth Route:
 
 Login: Endpoint for user login.
+
 Logout: Endpoint for user logout.
+
 Signup: Endpoint for user registration.
+
 Refresh Token: Endpoint to refresh JWT tokens.
 
 # Event Route:
@@ -41,26 +44,26 @@ Get Image by Name: Retrieve an image by its name.
 
 # User Schema:
 
-Username
-First Name
-Last Name
-Email
-Password
-Profile Picture
-Address
-Phone Number
-Description
-Followers
+Username, 
+First Name, 
+Last Name,
+Email,
+Password,
+Profile Picture,
+Address,
+Phone Number,
+Description,
+Followers, 
 
 # Event Schema:
 
-Location
-Picture
-Created By
-Attendees
-Description
-Venue Time
-Name
+ Location, 
+ Picture,
+ Created By,
+ Attendees,
+ Description,
+ Venue Time,
+ Name
 
 # Middleware:
 
@@ -117,6 +120,7 @@ Running the Project
 To start the project,
 
 Create a .env file from .env.example.
+
 Create a database and make sure to enter config in .env 
 
 npm install
