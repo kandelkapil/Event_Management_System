@@ -59,15 +59,16 @@ Name
 
 Middleware to check the validity of JWT tokens.
 
-Controllers
-Auth Controller
+# Controllers
+
+Auth Controller:
 
 SignUp: Register a new user.
 Login: Authenticate and log in the user.
 Refresh: Refresh JWT tokens.
 Logout: Log out the user.
 
-Events Controller
+Events Controller:
 
 Get Event by ID: Retrieve event details.
 Events List: Retrieve a list of events.
@@ -76,13 +77,13 @@ Update User by ID: Update user details.
 Create Event: Create a new event.
 Register Event: Register for an event.
 
-User Controller
+User Controller:
 
 Users List: Retrieve a list of users.
 Update User by ID: Update user details.
 Get User by ID: Retrieve user details.
 
-Util Controller
+Utils Controller:
 
 Upload Image: Handle image uploads.
 
@@ -100,8 +101,8 @@ To start the project,
 
 Create a .env file from .env.example.
 
-# npm install
+npm install
 
-# npm start
+npm start
 
 The server will be running at http://localhost:8000.
