@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes, Dialect } from "sequelize";
+import { Sequelize, DataTypes } from "sequelize";
 import { dbconfig } from "../database/dbConfig";
 import UserModel from "./UserModel";
 import EventModel from "./EventsModel";
@@ -9,7 +9,7 @@ const sequelize = new Sequelize(
   dbconfig.DB_PASSWORD!,
   {
     host: dbconfig.DB_HOST!,
-    dialect: dbconfig.dialect as Dialect,
+    dialect: dbconfig.dialect,
     pool: {
       max: dbconfig.pool.max,
       min: dbconfig.pool.min,

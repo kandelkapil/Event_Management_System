@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Op } from "sequelize";
-import { db } from "../models/index.js";
+import { db } from "../models/index";
 
 const User = db.user;
 

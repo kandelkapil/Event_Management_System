@@ -1,11 +1,12 @@
 import "dotenv/config";
+import { Dialect } from "sequelize";
 
 interface DbConfig {
   DB_HOST?: string;
   DB_USER?: string;
   DB_PASSWORD?: string;
   DB_NAME?: string;
-  dialect: string;
+  dialect: Dialect;
   pool: {
     max: number;
     min: number;
