@@ -1,4 +1,4 @@
-# Event Management Project
+# Event Management System
 
 This is an Event Management project built using the Model-View-Controller (MVC) design pattern. The project is implemented in Node.js and uses PostgreSQL as the database. Sequelize is employed as the ORM, JWT is used for token authentication, Multer handles image uploads, and TypeScript enhances code maintainability.
 
