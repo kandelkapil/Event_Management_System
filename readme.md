@@ -100,6 +100,7 @@ Running the Project
 To start the project,
 
 Create a .env file from .env.example.
+Create a database and make sure to enter config in .env 
 
 npm install
 
