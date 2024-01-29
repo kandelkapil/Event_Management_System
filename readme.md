@@ -2,37 +2,44 @@
 
 This is an Event Management project built using the Model-View-Controller (MVC) design pattern. The project is implemented in Node.js and uses PostgreSQL as the database. Sequelize is employed as the ORM, JWT is used for token authentication, Multer handles image uploads, and TypeScript enhances code maintainability.
 
-# Routes
+#    Routes
 
-Auth Route:
+# Auth Route:
 
 Login: Endpoint for user login.
 Logout: Endpoint for user logout.
 Signup: Endpoint for user registration.
 Refresh Token: Endpoint to refresh JWT tokens.
 
-Event Route:
+# Event Route:
 
 Get Event by ID: Retrieve event details by ID.
+
 Create Event: Create a new event.
+
 Update Event: Update existing event details.
+
 Delete Event: Delete an event.
+
 Register Event: Register for an event.
 
-User Route:
+# User Route:
 
 Get User List: Retrieve a list of users.
+
 Get User by ID: Retrieve user details by ID.
+
 Update User: Update user details.
 
-Util Route:
+# Utils Route:
 
 Upload Image: Post an image to the backend.
+
 Get Image by Name: Retrieve an image by its name.
 
-# Models
+#   Models
 
-User Schema:
+# User Schema:
 
 Username
 First Name
@@ -45,7 +52,7 @@ Phone Number
 Description
 Followers
 
-Event Schema:
+# Event Schema:
 
 Location
 Picture
@@ -59,31 +66,41 @@ Name
 
 Middleware to check the validity of JWT tokens.
 
-# Controllers
+#   Controllers
 
-Auth Controller:
+# Auth Controller:
 
 SignUp: Register a new user.
+
 Login: Authenticate and log in the user.
+
 Refresh: Refresh JWT tokens.
+
 Logout: Log out the user.
 
-Events Controller:
+# Events Controller:
 
 Get Event by ID: Retrieve event details.
+
 Events List: Retrieve a list of events.
+
 Delete Event by ID: Delete an event.
+
 Update User by ID: Update user details.
+
 Create Event: Create a new event.
+
 Register Event: Register for an event.
 
-User Controller:
+# User Controller:
 
 Users List: Retrieve a list of users.
+
 Update User by ID: Update user details.
+
 Get User by ID: Retrieve user details.
 
-Utils Controller:
+# Utils Controller:
 
 Upload Image: Handle image uploads.
 
