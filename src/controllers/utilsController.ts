@@ -2,7 +2,7 @@ import multer from "multer";
 import path from "path";
 import { Request, Response } from "express";
 
-const __filename = new URL(import.meta?.url)?.pathname;
+const __filename = new URL(import.meta.url).pathname;
 const __dirname = path.dirname(__filename);
 
 const storage: any = multer.diskStorage({
